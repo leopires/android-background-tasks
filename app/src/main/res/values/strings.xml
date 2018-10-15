@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Background Tasks</string>
+    <string name="app_name">Android Background Tasks</string>
+    <string name="imgvw_icon_desc">Option icon.</string>
 </resources>
