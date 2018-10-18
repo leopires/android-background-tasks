@@ -2,5 +2,6 @@
     <string name="app_name">Android Background Tasks</string>
     <string name="imgvw_icon_desc">Option icon.</string>
     <string name="counter_start_value">0</string>
-    <string name="start">Start</string>
+    <string name="start">Iniciar</string>
+    <string name="summary">Sumário da execução:</string>
 </resources>

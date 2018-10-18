@@ -18,7 +18,7 @@ public abstract class BasicFragment extends Fragment {
 
     private String getTagForLog() {
         if (this.tag == null) {
-            this.tag = "[" + this.getClass().getSimpleName() + "]";
+            this.tag = this.getClass().getSimpleName();
         }
         return tag;
     }
@@ -134,22 +134,6 @@ public abstract class BasicFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         logDebug("onDetach");
-        logActivity();
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        logDebug("onSaveInstanceState");
-        logDebug("Bundle: " + String.valueOf(outState));
-        logActivity();
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        logDebug("onViewStateRestored");
-        logDebug("Bundle: " + String.valueOf(savedInstanceState));
         logActivity();
     }
 

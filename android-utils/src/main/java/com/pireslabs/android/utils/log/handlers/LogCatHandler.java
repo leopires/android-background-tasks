@@ -22,6 +22,7 @@ public final class LogCatHandler implements LogHandler {
     }
 
     private void log(int priority, String tag, String message) {
-        Log.println(priority, tag, message);
+        Log.println(priority, String.format("{%s}", tag),
+                String.format("{THREAD: %s | %s} %s", Thread.currentThread().getId(), Thread.currentThread().getName(), message));
     }
 }

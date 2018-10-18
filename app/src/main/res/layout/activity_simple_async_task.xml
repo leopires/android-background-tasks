@@ -9,18 +9,18 @@
     <ProgressBar
         android:id="@+id/prgrssbr_counter"
         style="?android:attr/progressBarStyle"
-        android:visibility="invisible"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.308" />
+        app:layout_constraintVertical_bias="0.108" />
 
     <TextView
         android:id="@+id/txtvw_progress_value"
@@ -30,19 +30,49 @@
         android:textSize="90sp"
         app:layout_constraintBottom_toBottomOf="@+id/prgrssbr_counter"
         app:layout_constraintEnd_toEndOf="@+id/prgrssbr_counter"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="@+id/prgrssbr_counter"
-        app:layout_constraintTop_toTopOf="@+id/prgrssbr_counter" />
+        app:layout_constraintTop_toTopOf="@+id/prgrssbr_counter"
+        app:layout_constraintVertical_bias="0.506" />
 
     <Button
         android:id="@+id/btn_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="124dp"
         android:text="@string/start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/prgrssbr_counter" />
+
+    <TextView
+        android:id="@+id/txtvw_sumario_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="152dp"
+        android:text="@string/summary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtvw_sumario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtvw_sumario_label"
+        app:layout_constraintVertical_bias="0.043" />
 
 </android.support.constraint.ConstraintLayout>

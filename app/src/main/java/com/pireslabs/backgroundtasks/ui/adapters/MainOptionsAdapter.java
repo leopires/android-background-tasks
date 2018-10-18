@@ -77,15 +77,13 @@ public class MainOptionsAdapter extends RecyclerView.Adapter<MainOptionsAdapter.
 
     static final class OptionViewHolder extends RecyclerView.ViewHolder {
 
-        private AppActivities activity;
-
         private final ImageView imgvwIcon;
 
         private final TextView txtvwDescription;
 
         private Context context;
 
-        public OptionViewHolder(@NonNull View itemView) {
+        OptionViewHolder(@NonNull View itemView) {
             super(itemView);
             this.imgvwIcon = itemView.findViewById(R.id.imgvw_option_icon);
             this.txtvwDescription = itemView.findViewById(R.id.txtvw_option_description);
@@ -93,7 +91,6 @@ public class MainOptionsAdapter extends RecyclerView.Adapter<MainOptionsAdapter.
         }
 
         void setOption(ItemOption itemOption) {
-            this.activity = itemOption.activity;
             this.imgvwIcon.setImageDrawable(this.context.getResources().getDrawable(itemOption.getIconRes()));
             this.txtvwDescription.setText(itemOption.getActivityDescription());
         }

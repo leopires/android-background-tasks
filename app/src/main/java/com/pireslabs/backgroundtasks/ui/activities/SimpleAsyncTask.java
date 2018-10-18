@@ -7,16 +7,21 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.pireslabs.android.utils.ui.BasicActivity;
 import com.pireslabs.backgroundtasks.R;
+import com.pireslabs.backgroundtasks.helpers.NumbersHelpers;
+import com.pireslabs.backgroundtasks.helpers.StringHelper;
 import com.pireslabs.backgroundtasks.tasks.SimpleAsyncCounterTask;
 
-public class SimpleAsyncTask extends AppCompatActivity {
+public class SimpleAsyncTask extends BasicActivity {
 
     private TextView txtvwCounter;
 
     private ProgressBar progressBar;
 
     private Button btnStart;
+
+    private TextView txtvwSumario;
 
     private SimpleAsyncCounterTask counterTask;
 
@@ -31,15 +36,29 @@ public class SimpleAsyncTask extends AppCompatActivity {
         this.progressBar = findViewById(R.id.prgrssbr_counter);
         this.txtvwCounter = findViewById(R.id.txtvw_progress_value);
         this.btnStart = findViewById(R.id.btn_start);
+        this.txtvwSumario = findViewById(R.id.txtvw_sumario);
         this.setupStartButton();
     }
 
     private void setupStartButton() {
         if (this.btnStart != null) {
             this.btnStart.setOnClickListener(view -> {
-                startCounterTask(35);
+                clearSummary();
+                int counterSize = NumbersHelpers.getRandom(10, 35);
+                addToSummary("Tamanho do contador: " + counterSize);
+                startCounterTask(counterSize);
             });
         }
+    }
+
+    private void addToSummary(String message) {
+        String summaryContent = this.txtvwSumario.getText().toString();
+        summaryContent += message + "\n";
+        this.txtvwSumario.setText(summaryContent);
+    }
+
+    private void clearSummary() {
+        this.txtvwSumario.setText(StringHelper.empty());
     }
 
     private void startCounterTask(int counterSize) {

@@ -15,7 +15,7 @@ public abstract class BasicActivity extends AppCompatActivity {
 
     protected String getTag() {
         if (tag == null) {
-            this.tag = "[" + this.getClass().getSimpleName() + "]";
+            this.tag = this.getClass().getSimpleName();
         }
         return this.tag;
     }
@@ -66,27 +66,6 @@ public abstract class BasicActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.debug(this.getTag(), "onDestroy");
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.debug(this.getTag(), "onSaveInstanceState");
-        logBundle(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        Log.debug(this.getTag(), "onRestoreInstanceState");
-        logBundle(savedInstanceState);
-    }
-
-    private void logBundle(Bundle bundle) {
-        Log.debug(this.getTag(), "Bundle Details:");
-        for (String key: bundle.keySet()) {
-            Log.debug(this.getTag(), "[" + key + "] = " + String.valueOf(bundle.get(key)));
-        }
     }
 
     public void loadFragment(int containerViewId, Fragment fragment, boolean addToBackStack) {
