@@ -1,7 +1,10 @@
 package com.pireslabs.backgroundtasks.tasks;
 
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
@@ -9,8 +12,11 @@ public final class SimpleAsyncCounterTask extends AsyncTask<Integer, Integer, Vo
 
     private final WeakReference<TextView> textView;
 
-    public SimpleAsyncCounterTask(TextView textView) {
+    private final WeakReference<ProgressBar> progressBar;
+
+    public SimpleAsyncCounterTask(TextView textView, ProgressBar progressBar) {
         this.textView = new WeakReference<>(textView);
+        this.progressBar = new WeakReference<>(progressBar);
     }
 
     private void changeCounterValueTo(int counterValue) {
@@ -23,6 +29,7 @@ public final class SimpleAsyncCounterTask extends AsyncTask<Integer, Integer, Vo
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        this.progressBar.get().setVisibility(View.VISIBLE);
         this.changeCounterValueTo(0);
     }
 
@@ -30,10 +37,11 @@ public final class SimpleAsyncCounterTask extends AsyncTask<Integer, Integer, Vo
     protected Void doInBackground(Integer... integers) {
         Integer counterSize = integers[0];
         for (int i = 0; i <= counterSize; i++) {
+            publishProgress(i);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                changeCounterValueTo(0);
             }
         }
         return null;
@@ -46,6 +54,9 @@ public final class SimpleAsyncCounterTask extends AsyncTask<Integer, Integer, Vo
 
     @Override
     protected void onPostExecute(Void aVoid) {
+        this.progressBar.get().setVisibility(View.INVISIBLE);
+        Toast.makeText(this.progressBar.get().getContext(), "Contagem concluída.", Toast.LENGTH_SHORT).show();
+        this.changeCounterValueTo(0);
     }
 
 }

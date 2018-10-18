@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.pireslabs.backgroundtasks.R;
@@ -12,6 +13,8 @@ import com.pireslabs.backgroundtasks.tasks.SimpleAsyncCounterTask;
 public class SimpleAsyncTask extends AppCompatActivity {
 
     private TextView txtvwCounter;
+
+    private ProgressBar progressBar;
 
     private Button btnStart;
 
@@ -25,6 +28,7 @@ public class SimpleAsyncTask extends AppCompatActivity {
     }
 
     private void initControls() {
+        this.progressBar = findViewById(R.id.prgrssbr_counter);
         this.txtvwCounter = findViewById(R.id.txtvw_progress_value);
         this.btnStart = findViewById(R.id.btn_start);
         this.setupStartButton();
@@ -42,7 +46,7 @@ public class SimpleAsyncTask extends AppCompatActivity {
         if ((this.counterTask != null) && (this.counterTask.getStatus().equals(AsyncTask.Status.RUNNING))) {
             this.counterTask.cancel(true);
         }
-        this.counterTask = new SimpleAsyncCounterTask(this.txtvwCounter);
+        this.counterTask = new SimpleAsyncCounterTask(this.txtvwCounter, this.progressBar);
         this.counterTask.execute(counterSize);
     }
 }
