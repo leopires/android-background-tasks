@@ -33,40 +33,44 @@ public final class SimpleAsyncCounterTask extends AsyncTask<Integer, Integer, Vo
 
     @Override
     protected void onPreExecute() {
-        Log.debug(TAG, "onPreExecute");
+        Log.debug(TAG, "Executando o método onPreExecute.");
         this.progressBar.get().setVisibility(View.VISIBLE);
         this.changeCounterValueTo(0);
     }
 
     @Override
     protected Void doInBackground(Integer... integers) {
-        Log.debug(TAG, "doInBackground");
+        Log.debug(TAG, "Iniciando execução do método doInBackground.");
         Integer counterSize = integers[0];
-        Log.info(TAG, "Vou contar até: " + counterSize);
-        for (int i = 0; i <= counterSize; i++) {
+        Log.info(TAG, "Minha tarefa é contar até: " + counterSize);
+        for (int i = 0; i < counterSize; i++) {
+            if (isCancelled())
+                break;
             Log.debug(TAG, String.format("Contador: %s", i));
             publishProgress(i);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 changeCounterValueTo(0);
+                Log.error(TAG, e.getMessage());
+                return null;
             }
         }
+        Log.debug(TAG, "Fim da execução do método doInBackground.");
         return null;
     }
 
     @Override
     protected void onProgressUpdate(Integer... values) {
-        Log.debug(TAG, "onProgressUpdate");
+        Log.debug(TAG, "Atualizando a UI através do método onProgressUpdate.");
         this.changeCounterValueTo(values[0]);
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        Log.debug(TAG, "onPostExecute");
+        Log.debug(TAG, "Executando o método onPostExecute.");
         this.progressBar.get().setVisibility(View.INVISIBLE);
         Toast.makeText(this.progressBar.get().getContext(), "Contagem concluída.", Toast.LENGTH_SHORT).show();
         this.changeCounterValueTo(0);
     }
-
 }

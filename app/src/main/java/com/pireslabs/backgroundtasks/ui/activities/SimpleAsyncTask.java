@@ -68,4 +68,12 @@ public class SimpleAsyncTask extends BasicActivity {
         this.counterTask = new SimpleAsyncCounterTask(this.txtvwCounter, this.progressBar);
         this.counterTask.execute(counterSize);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if ((this.counterTask != null) && (this.counterTask.getStatus().equals(AsyncTask.Status.RUNNING))) {
+            this.counterTask.cancel(true);
+        }
+    }
 }

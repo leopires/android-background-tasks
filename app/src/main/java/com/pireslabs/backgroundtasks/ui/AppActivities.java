@@ -1,10 +1,12 @@
 package com.pireslabs.backgroundtasks.ui;
 
 import com.pireslabs.backgroundtasks.R;
+import com.pireslabs.backgroundtasks.ui.activities.CounterAsyncTaskActivity;
 
 public enum AppActivities {
 
-    SimpleAsyncTask("Simple Async Task", R.drawable.ic_simple_async_task, com.pireslabs.backgroundtasks.ui.activities.SimpleAsyncTask.class);
+    SimpleAsyncTask("Simple Async Task", R.drawable.ic_simple_async_task, com.pireslabs.backgroundtasks.ui.activities.SimpleAsyncTask.class),
+    CounterAsyncTask("Counter Async Task", R.drawable.ic_opt_timer, CounterAsyncTaskActivity.class);
 
     private String activityDescription;
 
