@@ -13,7 +13,7 @@ import com.pireslabs.backgroundtasks.helpers.NumbersHelpers;
 import com.pireslabs.backgroundtasks.helpers.StringHelper;
 import com.pireslabs.backgroundtasks.tasks.SimpleAsyncCounterTask;
 
-public class SimpleAsyncTask extends BasicActivity {
+public class SimpleAsyncTaskActivity extends BasicActivity {
 
     private TextView txtvwCounter;
 

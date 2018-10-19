@@ -2,7 +2,9 @@ package com.pireslabs.android.utils.async;
 
 import android.os.AsyncTask;
 
-public abstract class BasicAsyncTaskWithCallback extends AsyncTask<Void, ProgressResult<?>, BasicAsyncTaskResult<?>> {
+import com.pireslabs.android.utils.log.Log;
+
+public abstract class BasicAsyncTaskWithCallback extends AsyncTask<Void, ProgressResult, BasicAsyncTaskResult> {
 
     private final String taskTag;
 
@@ -22,28 +24,37 @@ public abstract class BasicAsyncTaskWithCallback extends AsyncTask<Void, Progres
 
     @Override
     protected void onPreExecute() {
+        Log.debug(this.taskTag, "Iniciando execução do método onPreExecute.");
         this.asyncTaskEvents.beforeTaskExecution();
+        Log.debug(this.taskTag, "Fim da execução do método onPreExecute.");
     }
 
     @Override
-    protected void onProgressUpdate(ProgressResult<?>... values) {
+    protected void onProgressUpdate(ProgressResult... values) {
         ProgressResult<?> progressResult = values[0];
         this.asyncTaskEvents.onExecution(progressResult);
     }
 
     @Override
-    protected void onPostExecute(BasicAsyncTaskResult<?> basicAsyncTaskResult) {
+    protected void onPostExecute(BasicAsyncTaskResult basicAsyncTaskResult) {
+        Log.debug(this.taskTag, "Iniciando execução do método onPostExecute.");
         Throwable error = basicAsyncTaskResult.getError();
         if (error != null) {
             this.asyncTaskEvents.onError(error);
         } else {
             this.asyncTaskEvents.onComplete(basicAsyncTaskResult);
         }
+        Log.debug(this.taskTag, "Fim da execução do método onPostExecute.");
     }
 
     @Override
     protected void onCancelled() {
+        Log.debug(this.taskTag, "O método onCancelled foi chamado.");
         this.asyncTaskEvents.onCancelled();
+    }
+
+    protected String getTaskTag() {
+        return this.taskTag;
     }
 
     public boolean isRunning() {
@@ -56,15 +67,16 @@ public abstract class BasicAsyncTaskWithCallback extends AsyncTask<Void, Progres
         }
     }
 
-    public String getTaskTag() {
-        return this.taskTag;
-    }
 
     public interface AsyncTaskEvents {
         void beforeTaskExecution();
+
         void onComplete(BasicAsyncTaskResult<?> result);
-        void onExecution(ProgressResult<?> progress);
+
+        void onExecution(ProgressResult progress);
+
         void onError(Throwable error);
+
         void onCancelled();
     }
 }

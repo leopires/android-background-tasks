@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.pireslabs.android.utils.async.BasicAsyncTaskResult;
 import com.pireslabs.android.utils.async.BasicAsyncTaskWithCallback;
 import com.pireslabs.android.utils.async.ProgressResult;
+import com.pireslabs.android.utils.log.Log;
 import com.pireslabs.android.utils.ui.BasicActivity;
 import com.pireslabs.backgroundtasks.R;
 import com.pireslabs.backgroundtasks.helpers.NumbersHelpers;
@@ -70,7 +71,8 @@ public class CounterAsyncTaskActivity extends BasicActivity {
         if ((this.counterTask != null) && (this.counterTask.isRunning())) {
             this.counterTask.cancel();
         }
-        this.txtvwSumario.setText("Vou contar até: " + String.valueOf(counterSize));
+        this.txtvwSumario.setText(String.format(getResources().getString(R.string.counter_size_message),
+                String.valueOf(counterSize)));
         this.counterTask = (CounterAsyncTask) new CounterAsyncTask("Task 0343",
                 new BasicAsyncTaskWithCallback.AsyncTaskEvents() {
                     @Override
@@ -80,18 +82,22 @@ public class CounterAsyncTaskActivity extends BasicActivity {
                     }
 
                     @Override
-                    public void onComplete(BasicAsyncTaskResult<?> result) {
+                    public void onComplete(BasicAsyncTaskResult result) {
                         Toast.makeText(getBaseContext(), "Contagem concluída.", Toast.LENGTH_SHORT).show();
+                        txtvwCounter.setText("0");
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
-                    public void onExecution(ProgressResult<?> progress) {
-                        txtvwCounter.setText(((ProgressResult<Integer>) progress).getResult().toString());
+                    public void onExecution(ProgressResult progress) {
+                        String currentCountPosition = ((ProgressResult<Integer>) progress).getResult().toString();
+                        txtvwCounter.setText(currentCountPosition);
                     }
 
                     @Override
                     public void onError(Throwable error) {
-                        txtvwSumario.setText(error.getMessage());
+                        Log.error(getTag(), error.getMessage());
+                        Toast.makeText(getBaseContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                     }
 
                     @Override

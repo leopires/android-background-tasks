@@ -1,5 +1,6 @@
 package com.pireslabs.backgroundtasks.tasks;
 
+import com.pireslabs.android.utils.async.AsyncTaskCancelledException;
 import com.pireslabs.android.utils.async.BasicAsyncTaskResult;
 import com.pireslabs.android.utils.async.BasicAsyncTaskWithCallback;
 import com.pireslabs.android.utils.async.IntegerTaskResult;
@@ -14,19 +15,22 @@ public final class CounterAsyncTask extends BasicAsyncTaskWithCallback {
     public CounterAsyncTask(String taskTag, AsyncTaskEvents asyncTaskEvents, int counterSize) {
         super(taskTag, asyncTaskEvents);
         this.counterService = new CounterService(counterSize);
-        Log.info(this.getTaskTag(), String.format("Minha tarefa é contar até: %s", this.counterService.getCounterSize()));
+        Log.info(this.getTaskTag(), String.format("Olá! Minha tarefa é contar até: %s", this.counterService.getCounterSize()));
     }
 
     @Override
     protected BasicAsyncTaskResult<?> doInBackground(Void... voids) {
-        Log.info(this.getTaskTag(), "Iniciando contagem.");
+        Log.info(this.getTaskTag(), "Iniciando execução da contagem.");
         while (this.counterService.hasNext()) {
-            Log.debug(this.getTaskTag(), String.format("O contador esta em: %02d.", this.counterService.getCurrentValue()));
+            if (isCancelled())
+                break;
+            Log.debug(this.getTaskTag(), String.format("O contador está em: %s.", this.counterService.getCurrentValue()));
             publishProgress(new ProgressResult<Integer>(this.counterService.getCurrentValue()));
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
-                Log.error(this.getTaskTag(), String.format("Thread interrompida devido à: %s", ex.getMessage()));
+                String message =  String.format("A execução da Thread %s foi interrompida.", Thread.currentThread().getId());
+                return new IntegerTaskResult(new AsyncTaskCancelledException(message));
             }
         }
         Log.info(this.getTaskTag(), "Contagem encerrada.");

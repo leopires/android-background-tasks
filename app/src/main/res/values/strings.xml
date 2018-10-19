@@ -4,4 +4,5 @@
     <string name="counter_start_value">0</string>
     <string name="start">Iniciar</string>
     <string name="summary">Sumário da execução:</string>
+    <string name="counter_size_message">Vou contar até %1$s.</string>
 </resources>
