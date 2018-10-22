@@ -1,6 +1,6 @@
 package com.pireslabs.android.utils.async;
 
-public final class BooleanTaskResult extends BasicAsyncTaskResult<Boolean> {
+public final class BooleanTaskResult extends BasicTaskResult<Boolean> {
 
     public BooleanTaskResult(String taskTag, Boolean result) {
         super(taskTag, result);

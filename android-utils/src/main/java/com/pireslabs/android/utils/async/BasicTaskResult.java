@@ -1,6 +1,6 @@
 package com.pireslabs.android.utils.async;
 
-public abstract class BasicAsyncTaskResult<T> {
+public abstract class BasicTaskResult<T> {
 
     private final String taskTag;
 
@@ -8,25 +8,25 @@ public abstract class BasicAsyncTaskResult<T> {
 
     private final Throwable error;
 
-    private BasicAsyncTaskResult(String taskTag, T result, Throwable error) {
+    private BasicTaskResult(String taskTag, T result, Throwable error) {
         this.taskTag = taskTag;
         this.result = result;
         this.error = error;
     }
 
-    public BasicAsyncTaskResult(String taskTag, T result) {
+    public BasicTaskResult(String taskTag, T result) {
         this(taskTag, result, null);
     }
 
-    public BasicAsyncTaskResult(T result) {
+    public BasicTaskResult(T result) {
         this(null, result, null);
     }
 
-    public BasicAsyncTaskResult(String taskTag, Throwable error) {
+    public BasicTaskResult(String taskTag, Throwable error) {
         this(taskTag, null, error);
     }
 
-    public BasicAsyncTaskResult(Throwable error) {
+    public BasicTaskResult(Throwable error) {
         this(null, null, error);
     }
 

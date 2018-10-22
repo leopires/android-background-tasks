@@ -4,22 +4,18 @@ import android.os.AsyncTask;
 
 import com.pireslabs.android.utils.log.Log;
 
-public abstract class BasicAsyncTaskWithCallback extends AsyncTask<Void, ProgressResult, BasicAsyncTaskResult> {
+public abstract class BasicAsyncTaskWithCallback extends AsyncTask<Void, ProgressResult, BasicTaskResult> {
 
     private final String taskTag;
 
-    private final AsyncTaskEvents asyncTaskEvents;
+    private final AsyncTaskListener asyncTaskEvents;
 
-    public BasicAsyncTaskWithCallback(String taskTag, AsyncTaskEvents asyncTaskEvents) {
+    public BasicAsyncTaskWithCallback(String taskTag, AsyncTaskListener asyncTaskEvents) {
         if (asyncTaskEvents == null) {
-            throw new IllegalArgumentException("Os eventos desta AsyncTask não podem ser nulos.");
+            throw new IllegalArgumentException("O objeto que acompanha os eventos desta AsyncTask não pode ser nulo.");
         }
         this.taskTag = taskTag;
         this.asyncTaskEvents = asyncTaskEvents;
-    }
-
-    public BasicAsyncTaskWithCallback(AsyncTaskEvents asyncTaskEvents) {
-        this(null, asyncTaskEvents);
     }
 
     @Override
@@ -36,7 +32,7 @@ public abstract class BasicAsyncTaskWithCallback extends AsyncTask<Void, Progres
     }
 
     @Override
-    protected void onPostExecute(BasicAsyncTaskResult basicAsyncTaskResult) {
+    protected void onPostExecute(BasicTaskResult basicAsyncTaskResult) {
         Log.debug(this.taskTag, "Iniciando execução do método onPostExecute.");
         Throwable error = basicAsyncTaskResult.getError();
         if (error != null) {
@@ -65,18 +61,5 @@ public abstract class BasicAsyncTaskWithCallback extends AsyncTask<Void, Progres
         if (this.isRunning()) {
             this.cancel(true);
         }
-    }
-
-
-    public interface AsyncTaskEvents {
-        void beforeTaskExecution();
-
-        void onComplete(BasicAsyncTaskResult<?> result);
-
-        void onExecution(ProgressResult progress);
-
-        void onError(Throwable error);
-
-        void onCancelled();
     }
 }

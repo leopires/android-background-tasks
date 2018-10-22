@@ -1,6 +1,6 @@
 package com.pireslabs.android.utils.async;
 
-public final class StringTaskResult extends BasicAsyncTaskResult<String> {
+public final class StringTaskResult extends BasicTaskResult<String> {
 
     public StringTaskResult(String taskTag, String result) {
         super(taskTag, result);

@@ -37,16 +37,13 @@ public class MainOptionsAdapter extends RecyclerView.Adapter<MainOptionsAdapter.
         }
     }
 
-    private final Context context;
-
     private final ItemOption[] options;
 
     private final LayoutInflater layoutInflater;
 
     public MainOptionsAdapter(Context context, ItemOption[] options) {
-        this.context = context;
         this.options = options;
-        this.layoutInflater = LayoutInflater.from(this.context);
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull

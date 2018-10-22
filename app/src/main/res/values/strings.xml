@@ -5,4 +5,7 @@
     <string name="start">Iniciar</string>
     <string name="summary">Sumário da execução:</string>
     <string name="counter_size_message">Vou contar até %1$s.</string>
+    <string name="detalhes">Detalhes</string>
+    <string name="counter_task_size">- Meu objetivo é contar até: %s</string>
+    <string name="counter_task_tag">- A TAG da AsyncTask é: %s</string>
 </resources>
