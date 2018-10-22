@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
 
 import com.pireslabs.android.utils.ui.BasicActivity;
 import com.pireslabs.backgroundtasks.R;
@@ -15,6 +16,8 @@ public class CounterAsyncTaskActivity extends BasicActivity {
 
     private static final ObservableCounterAsyncTask[] COUNTERS = new ObservableCounterAsyncTask[10];
 
+    private Button btnStartCounters;
+
     private RecyclerView listaContadores;
 
     @Override
@@ -25,8 +28,10 @@ public class CounterAsyncTaskActivity extends BasicActivity {
     }
 
     private void initControls() {
+        this.btnStartCounters = findViewById(R.id.btn_start_counters);
         this.listaContadores = findViewById(R.id.rcclrvw_counter_async_tasks);
         this.setupRecyclerView();
+        this.setupStartButton();
     }
 
     private void setupRecyclerView() {
@@ -37,11 +42,20 @@ public class CounterAsyncTaskActivity extends BasicActivity {
         }
     }
 
+    private void setupStartButton() {
+        if (this.btnStartCounters != null) {
+            this.btnStartCounters.setOnClickListener(view -> {
+                for (ObservableCounterAsyncTask COUNTER : COUNTERS) {
+                    COUNTER.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
+            });
+        }
+    }
+
     private void createTasks() {
         for (int i = 0; i < COUNTERS.length; i++) {
             String taskTag = String.format("TSK-%s", i+1);
-            COUNTERS[i] = new ObservableCounterAsyncTask(taskTag, NumbersHelpers.getRandom(10, 35));
-            COUNTERS[i].executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            COUNTERS[i] = new ObservableCounterAsyncTask(taskTag, NumbersHelpers.getRandom(10, 30));
         }
     }
 }

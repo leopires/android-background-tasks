@@ -28,6 +28,16 @@ public final class ObservableCounterAsyncTask extends BasicObservableAsyncTask {
         return this.counterService.getCurrentValue();
     }
 
+//    public BasicTaskResult getFinalResult() {
+//        if (this.getStatus() == Status.RUNNING) {
+//            throw new IllegalStateException("Este método não pode ser chamado enquanto a tarefa estiver em execução.");
+//        }
+//        if (this.getStatus() == Status.PENDING) {
+//            return null;
+//        }
+//        return this.taskResult;
+//    }
+
     @Override
     protected BasicTaskResult doInBackground(Void... voids) {
         Log.info(this.getTaskTag(), "Iniciando execução da contagem.");
@@ -50,7 +60,4 @@ public final class ObservableCounterAsyncTask extends BasicObservableAsyncTask {
         return this.taskResult;
     }
 
-    public BasicTaskResult getFinalResult() {
-        return this.taskResult;
-    }
 }

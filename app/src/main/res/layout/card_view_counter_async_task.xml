@@ -31,7 +31,7 @@
             android:layout_height="0dp"
             android:gravity="center"
             android:text="@string/counter_start_value"
-            android:textSize="36sp"
+            android:textSize="32sp"
             app:layout_constraintBottom_toBottomOf="@+id/prgrssbr_counter_task_progress_animation"
             app:layout_constraintEnd_toEndOf="@+id/prgrssbr_counter_task_progress_animation"
             app:layout_constraintHorizontal_bias="0.0"

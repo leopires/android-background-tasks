@@ -1,6 +1,7 @@
 package com.pireslabs.backgroundtasks.ui.adapters;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,18 +33,35 @@ public class CountersTaskListAdapter extends RecyclerView.Adapter<CountersTaskLi
     @Override
     public CounterTaskViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         final View itemView = this.layoutInflater.inflate(R.layout.card_view_counter_async_task, viewGroup, false);
-        return new CounterTaskViewHolder(itemView);
+        CounterTaskViewHolder viewHolder = new CounterTaskViewHolder(itemView);
+        logDebug(String.valueOf(viewHolder.instanceNumber), "onCreateViewHolder", "NEW");
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CounterTaskViewHolder viewHolder, int i) {
         final ObservableCounterAsyncTask counterAsyncTask = this.countersTasks[i];
+        logDebug(String.valueOf(viewHolder.instanceNumber), "onBindViewHolder", "[TSK] = " + counterAsyncTask.getTaskTag());
         viewHolder.setObservableCounterTaskToObserve(counterAsyncTask);
     }
 
     @Override
+    public void onViewRecycled(@NonNull CounterTaskViewHolder holder) {
+        logDebug(String.valueOf(holder.instanceNumber), "onViewRecycled", "");
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull CounterTaskViewHolder holder) {
+        logDebug(String.valueOf(holder.instanceNumber), "onViewAttachedToWindow", "");
+    }
+
+    @Override
     public void onViewDetachedFromWindow(@NonNull CounterTaskViewHolder holder) {
-        holder.removeObservableCounterTaskToObserve();
+        logDebug(String.valueOf(holder.instanceNumber), "onViewDetachedFromWindow", "");
+    }
+
+    private void logDebug(String viewHolder, String metodo, String message) {
+        Log.debug(this.getClass().getSimpleName(), String.format("[VH] = %s | (%s): %s", viewHolder, metodo, message));
     }
 
     @Override
@@ -81,24 +99,18 @@ public class CountersTaskListAdapter extends RecyclerView.Adapter<CountersTaskLi
             this.txtvwCounterTaskSize = itemView.findViewById(R.id.txtvw_counter_task_task_size);
             instancesCount++;
             this.instanceNumber = instancesCount;
-            Log.debug(this.getClass().getSimpleName(), "Created. ID: " + instanceNumber);
         }
 
         void setObservableCounterTaskToObserve(ObservableCounterAsyncTask counterAsyncTask) {
             this.counterTask = counterAsyncTask;
-            this.counterTask.addListener(this);
-            Log.debug(this.getClass().getSimpleName(),
-                    String.format("ViewHolder %s está observando a Counter Task %s de estado %s",
-                            instanceNumber,
-                            this.counterTask.getTaskTag(),
-                            this.counterTask.getStatus().toString()));
+//            this.counterTask.addListener(this);
             this.txtvwCounterTaskTag.setText(this.formatCounterTaskTag(this.counterTask.getTaskTag()));
             this.txtvwCounterTaskSize.setText(this.formatCounterTaskSize(this.counterTask.getTaskSize()));
-            if (this.counterTask.isRunning()) {
-                this.txtvwCounterTaskCurrentValue.setText(String.format("%s", this.counterTask.getTaskCurrentPosition()));
-            } else {
-                this.onComplete(this.counterTask.getFinalResult());
-            }
+//            if (this.counterTask.isRunning()) {
+//                this.txtvwCounterTaskCurrentValue.setText(String.format("%s", this.counterTask.getTaskCurrentPosition()));
+//            } else if (this.counterTask.getStatus() == AsyncTask.Status.FINISHED) {
+//                this.onComplete(this.counterTask.getFinalResult());
+//            }
         }
 
         void removeObservableCounterTaskToObserve() {
@@ -121,31 +133,31 @@ public class CountersTaskListAdapter extends RecyclerView.Adapter<CountersTaskLi
 
         @Override
         public void beforeTaskExecution() {
-            this.prgrssbrCounterTaskProgress.setVisibility(View.VISIBLE);
-            this.txtvwCounterTaskCurrentValue.setText(String.valueOf(0));
+//            this.prgrssbrCounterTaskProgress.setVisibility(View.VISIBLE);
+//            this.txtvwCounterTaskCurrentValue.setText(String.valueOf(0));
         }
 
         @Override
         public void onExecution(ProgressResult progress) {
-            ProgressResult<Integer> progressResult = (ProgressResult<Integer>) progress;
-            this.prgrssbrCounterTaskProgress.setVisibility(View.VISIBLE);
-            this.txtvwCounterTaskCurrentValue.setText(String.format("%s", progressResult.getResult()));
+//            ProgressResult<Integer> progressResult = (ProgressResult<Integer>) progress;
+//            this.prgrssbrCounterTaskProgress.setVisibility(View.VISIBLE);
+//            this.txtvwCounterTaskCurrentValue.setText(String.format("%s", progressResult.getResult()));
         }
 
         @Override
         public void onComplete(BasicTaskResult result) {
-            this.prgrssbrCounterTaskProgress.setVisibility(View.INVISIBLE);
-            this.txtvwCounterTaskCurrentValue.setText(String.format("%s", ((IntegerTaskResult)result).getResult().toString()));
+//            this.prgrssbrCounterTaskProgress.setVisibility(View.INVISIBLE);
+//            this.txtvwCounterTaskCurrentValue.setText(String.format("%s", ((IntegerTaskResult)result).getResult().toString()));
         }
 
         @Override
         public void onError(Throwable error) {
-            Log.error(this.counterTask.getTaskTag(), error.getMessage());
+//            Log.error(this.counterTask.getTaskTag(), error.getMessage());
         }
 
         @Override
         public void onCancelled() {
-            Log.error(this.counterTask.getTaskTag(), "Cancelada.");
+//            Log.error(this.counterTask.getTaskTag(), "Cancelada.");
         }
     }
 }
