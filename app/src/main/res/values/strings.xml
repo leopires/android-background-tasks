@@ -8,4 +8,7 @@
     <string name="detalhes">Detalhes</string>
     <string name="counter_task_size">- Meu objetivo é contar até: %s</string>
     <string name="counter_task_tag">- A TAG da AsyncTask é: %s</string>
+    <string name="execucao_serial">Execução serial</string>
+    <string name="execucao_serial_sim">SIM</string>
+    <string name="execucao_serial_nao">NÃO</string>
 </resources>

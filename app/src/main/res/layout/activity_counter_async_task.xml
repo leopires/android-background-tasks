@@ -10,13 +10,44 @@
         android:id="@+id/btn_start_counters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="16dp"
         android:text="@string/start"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_start_counters"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintStart_toEndOf="@+id/btn_start_counters"
+        app:layout_constraintTop_toTopOf="@+id/btn_start_counters">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/execucao_serial" />
+
+        <Switch
+            android:id="@+id/swtch_execution_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:textAlignment="center"
+            android:textOff="@string/execucao_serial_nao"
+            android:textOn="@string/execucao_serial_sim"
+            tools:checked="false"
+            tools:layout_editor_absoluteX="168dp"
+            tools:layout_editor_absoluteY="27dp" />
+
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcclrvw_counter_async_tasks"
@@ -35,6 +66,7 @@
         tools:listitem="@layout/card_view_counter_async_task">
 
     </android.support.v7.widget.RecyclerView>
+
 
 
 </android.support.constraint.ConstraintLayout>

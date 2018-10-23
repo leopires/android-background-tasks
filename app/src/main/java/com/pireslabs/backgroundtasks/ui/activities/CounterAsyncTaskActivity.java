@@ -14,7 +14,7 @@ import com.pireslabs.backgroundtasks.ui.adapters.CountersTaskListAdapter;
 
 public class CounterAsyncTaskActivity extends BasicActivity {
 
-    private static final ObservableCounterAsyncTask[] COUNTERS = new ObservableCounterAsyncTask[10];
+    private static final ObservableCounterAsyncTask[] COUNTERS = new ObservableCounterAsyncTask[12];
 
     private Button btnStartCounters;
 
@@ -25,6 +25,14 @@ public class CounterAsyncTaskActivity extends BasicActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_counter_async_task);
         this.initControls();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        for (ObservableCounterAsyncTask task: COUNTERS) {
+            task.cancel();
+        }
     }
 
     private void initControls() {
@@ -42,20 +50,23 @@ public class CounterAsyncTaskActivity extends BasicActivity {
         }
     }
 
-    private void setupStartButton() {
-        if (this.btnStartCounters != null) {
-            this.btnStartCounters.setOnClickListener(view -> {
-                for (ObservableCounterAsyncTask COUNTER : COUNTERS) {
-                    COUNTER.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                }
-            });
-        }
-    }
-
     private void createTasks() {
         for (int i = 0; i < COUNTERS.length; i++) {
             String taskTag = String.format("TSK-%s", i+1);
             COUNTERS[i] = new ObservableCounterAsyncTask(taskTag, NumbersHelpers.getRandom(10, 30));
         }
     }
+
+    private void setupStartButton() {
+        if (this.btnStartCounters != null) {
+            this.btnStartCounters.setOnClickListener(view -> {
+                for (ObservableCounterAsyncTask COUNTER : COUNTERS) {
+                    COUNTER.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
+                this.btnStartCounters.setEnabled(false);
+                this.btnStartCounters.setAlpha(0.8f);
+            });
+        }
+    }
+
 }

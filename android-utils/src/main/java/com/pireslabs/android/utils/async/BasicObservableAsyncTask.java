@@ -102,7 +102,7 @@ public abstract class BasicObservableAsyncTask extends AsyncTask<Void, ProgressR
     }
 
     @Override
-    protected void onCancelled() {
+    protected void onCancelled(BasicTaskResult result) {
         this.notifyOnCancelled();
     }
 }
