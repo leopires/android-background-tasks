@@ -5,12 +5,17 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.pireslabs.android.utils.ui.BasicActivity;
 import com.pireslabs.backgroundtasks.R;
 import com.pireslabs.backgroundtasks.helpers.NumbersHelpers;
 import com.pireslabs.backgroundtasks.tasks.ObservableCounterAsyncTask;
 import com.pireslabs.backgroundtasks.ui.adapters.CountersTaskListAdapter;
+
+import java.util.concurrent.Executor;
 
 public class CounterAsyncTaskActivity extends BasicActivity {
 
@@ -19,6 +24,10 @@ public class CounterAsyncTaskActivity extends BasicActivity {
     private Button btnStartCounters;
 
     private RecyclerView listaContadores;
+
+    private Switch swtchSerialExecution;
+
+    private boolean serialExecution = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +47,10 @@ public class CounterAsyncTaskActivity extends BasicActivity {
     private void initControls() {
         this.btnStartCounters = findViewById(R.id.btn_start_counters);
         this.listaContadores = findViewById(R.id.rcclrvw_counter_async_tasks);
+        this.swtchSerialExecution = findViewById(R.id.swtch_execution_mode);
         this.setupRecyclerView();
         this.setupStartButton();
+        this.setupSwitch();
     }
 
     private void setupRecyclerView() {
@@ -60,12 +71,31 @@ public class CounterAsyncTaskActivity extends BasicActivity {
     private void setupStartButton() {
         if (this.btnStartCounters != null) {
             this.btnStartCounters.setOnClickListener(view -> {
+                Executor executor;
+                String mensagem;
+                if (serialExecution) {
+                    executor = AsyncTask.SERIAL_EXECUTOR;
+                    mensagem = "A execução dos contadores ocorrerá de forma sequencial.";
+
+                } else {
+                    executor = AsyncTask.THREAD_POOL_EXECUTOR;
+                    mensagem = "A execução dos contadores ocorrerá de forma paralela, respeitando o limite do Pool de Execução.";
+                }
+                Toast.makeText(getBaseContext(), mensagem, Toast.LENGTH_LONG).show();
                 for (ObservableCounterAsyncTask COUNTER : COUNTERS) {
-                    COUNTER.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    COUNTER.executeOnExecutor(executor);
                 }
                 this.btnStartCounters.setEnabled(false);
                 this.btnStartCounters.setAlpha(0.8f);
+                this.swtchSerialExecution.setEnabled(false);
+                this.swtchSerialExecution.setAlpha(0.8f);
             });
+        }
+    }
+
+    private void setupSwitch() {
+        if (this.swtchSerialExecution != null) {
+            this.swtchSerialExecution.setOnCheckedChangeListener((buttonView, isChecked) -> serialExecution = isChecked);
         }
     }
 

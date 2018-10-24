@@ -1,10 +1,10 @@
 package com.pireslabs.backgroundtasks.tasks;
 
-import com.pireslabs.android.utils.async.AsyncTaskCancelledException;
-import com.pireslabs.android.utils.async.BasicObservableAsyncTask;
-import com.pireslabs.android.utils.async.BasicTaskResult;
-import com.pireslabs.android.utils.async.IntegerTaskResult;
-import com.pireslabs.android.utils.async.ProgressResult;
+import com.pireslabs.android.utils.asynctasks.AsyncTaskCancelledException;
+import com.pireslabs.android.utils.asynctasks.BasicObservableAsyncTask;
+import com.pireslabs.android.utils.asynctasks.BasicTaskResult;
+import com.pireslabs.android.utils.asynctasks.IntegerTaskResult;
+import com.pireslabs.android.utils.asynctasks.ProgressResult;
 import com.pireslabs.android.utils.log.Log;
 import com.pireslabs.backgroundtasks.services.CounterService;
 

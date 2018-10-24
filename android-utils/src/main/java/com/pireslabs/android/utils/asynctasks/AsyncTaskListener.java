@@ -1,4 +1,4 @@
-package com.pireslabs.android.utils.async;
+package com.pireslabs.android.utils.asynctasks;
 
 public interface AsyncTaskListener {
 

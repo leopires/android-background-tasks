@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.pireslabs.android.utils.async.AsyncTaskListener;
-import com.pireslabs.android.utils.async.BasicTaskResult;
-import com.pireslabs.android.utils.async.IntegerTaskResult;
-import com.pireslabs.android.utils.async.ProgressResult;
+import com.pireslabs.android.utils.asynctasks.AsyncTaskListener;
+import com.pireslabs.android.utils.asynctasks.BasicTaskResult;
+import com.pireslabs.android.utils.asynctasks.IntegerTaskResult;
+import com.pireslabs.android.utils.asynctasks.ProgressResult;
 import com.pireslabs.android.utils.log.Log;
 import com.pireslabs.backgroundtasks.R;
 import com.pireslabs.backgroundtasks.tasks.ObservableCounterAsyncTask;

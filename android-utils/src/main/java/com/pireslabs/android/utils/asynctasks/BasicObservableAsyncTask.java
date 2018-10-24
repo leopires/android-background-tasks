@@ -1,4 +1,4 @@
-package com.pireslabs.android.utils.async;
+package com.pireslabs.android.utils.asynctasks;
 
 import android.os.AsyncTask;
 
@@ -83,6 +83,7 @@ public abstract class BasicObservableAsyncTask extends AsyncTask<Void, ProgressR
 
     @Override
     protected void onPreExecute() {
+        Log.info(this.taskTag, "Notificando meus observadores sobre o início das minhas atividades.");
         this.notifyOnBeforeTaskExecution();
     }
 
@@ -93,6 +94,7 @@ public abstract class BasicObservableAsyncTask extends AsyncTask<Void, ProgressR
 
     @Override
     protected void onPostExecute(BasicTaskResult basicTaskResult) {
+        Log.info(this.taskTag, "Notificando meus observadores que eu terminei o meu trabalho.");
         Throwable error = basicTaskResult.getError();
         if (error != null) {
             this.notifyOnError(error);
@@ -103,6 +105,7 @@ public abstract class BasicObservableAsyncTask extends AsyncTask<Void, ProgressR
 
     @Override
     protected void onCancelled(BasicTaskResult result) {
+        Log.info(this.taskTag, "Notificando meus observadores de que meu trabalho foi cancelado.");
         this.notifyOnCancelled();
     }
 }

@@ -1,4 +1,4 @@
-package com.pireslabs.android.utils.async;
+package com.pireslabs.android.utils.asynctasks;
 
 public abstract class BasicTaskResult<T> {
 
@@ -14,19 +14,19 @@ public abstract class BasicTaskResult<T> {
         this.error = error;
     }
 
-    public BasicTaskResult(String taskTag, T result) {
+    BasicTaskResult(String taskTag, T result) {
         this(taskTag, result, null);
     }
 
-    public BasicTaskResult(T result) {
+    BasicTaskResult(T result) {
         this(null, result, null);
     }
 
-    public BasicTaskResult(String taskTag, Throwable error) {
+    BasicTaskResult(String taskTag, Throwable error) {
         this(taskTag, null, error);
     }
 
-    public BasicTaskResult(Throwable error) {
+    BasicTaskResult(Throwable error) {
         this(null, null, error);
     }
 
