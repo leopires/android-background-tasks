@@ -12,6 +12,7 @@ import com.pireslabs.backgroundtasks.ui.adapters.MainOptionsAdapter;
 public class MainActivity extends AppCompatActivity {
 
     private static final MainOptionsAdapter.ItemOption[] OPTIONS = {
+            new MainOptionsAdapter.ItemOption(AppActivities.SimpleThread),
             new MainOptionsAdapter.ItemOption(AppActivities.SimpleAsyncTask),
             new MainOptionsAdapter.ItemOption(AppActivities.CounterAsyncTask)
     };

@@ -11,4 +11,5 @@
     <string name="execucao_serial">Execução serial</string>
     <string name="execucao_serial_sim">SIM</string>
     <string name="execucao_serial_nao">NÃO</string>
+    <string name="sobre">Olá! Minha tarefa será contar até: %s</string>
 </resources>

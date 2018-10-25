@@ -19,8 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.SimpleAsyncTaskActivity"></activity>
+        <activity android:name=".ui.activities.SimpleAsyncTaskActivity" />
         <activity android:name=".ui.activities.CounterAsyncTaskActivity" />
+        <activity android:name=".ui.activities.SimpleThreadActivity"></activity>
     </application>
 
 </manifest>
