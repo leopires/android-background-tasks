@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".ui.activities.SimpleAsyncTaskActivity" />
         <activity android:name=".ui.activities.CounterAsyncTaskActivity" />
-        <activity android:name=".ui.activities.SimpleThreadActivity"></activity>
+        <activity android:name=".ui.activities.SimpleThreadActivity"/>
     </application>
 
 </manifest>

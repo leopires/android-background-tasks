@@ -2,12 +2,12 @@ package com.pireslabs.backgroundtasks.ui.activities;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.pireslabs.android.utils.ui.BasicActivity;
 import com.pireslabs.backgroundtasks.R;
